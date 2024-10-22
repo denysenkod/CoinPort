@@ -1,3 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+body {
+    color: #FFC002;
+    background-color: #025cd3;
+}
+
+[data-theme="dark"] body {
+    color: #FFC002;
+    background-color: #171717;
+}
