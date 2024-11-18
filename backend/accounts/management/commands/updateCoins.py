@@ -4,6 +4,16 @@ import requests
 # Import the Coin model
 from accounts.models import Coin 
 
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+# CoinGecko API URL for fetching coin data, including a placeholder for coin ID.
+COINGECKO_API_KEY = os.getenv('COINGECKO_API_KEY')
+
+
 # Defines a new Command class inheriting from BaseCommand.
 class Command(BaseCommand):
     '''Scipt is designed to get a list of top 1000 coins by market capitalisation
@@ -16,7 +26,7 @@ class Command(BaseCommand):
         # Loops through the first 4 pages of the CoinGecko API.
         for i in range(1,5):
             # Makes a GET request to the CoinGecko API for an array of coins.
-            responce = requests.get(f"https://pro-api.coingecko.com/api/v3/coins?per_page=250&page={i}vs_currency=usd&x_cg_pro_api_key=CG-KoQX65qXJc75y6buWtSQXtDP")
+            responce = requests.get(f"https://pro-api.coingecko.com/api/v3/coins?per_page=250&page={i}vs_currency=usd&x_cg_pro_api_key={COINGECKO_API_KEY}")
             # Iterate through the JSON response, adding valid coins to the coins list.
             for i in responce.json():
                 # Check if the coin's image is missing and print a message if it is.

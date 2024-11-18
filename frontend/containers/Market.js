@@ -38,7 +38,8 @@ const Market = () => {
 
     // Asynchronous function to fetch market data for various coins from the CoinGecko API.
     async function get_data() {
-      let response = await axios.get("https://pro-api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&price_change_percentage=1h,24h,7d&per_page=100&page=1&price_change_percentage=1h%2C7d&x_cg_pro_api_key=CG-KoQX65qXJc75y6buWtSQXtDP")
+      const apiKey = process.env.NEXT_PUBLIC_COINGECKO_API_KEY;
+      let response = await axios.get(`https://pro-api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&price_change_percentage=1h,24h,7d&per_page=100&page=1&price_change_percentage=1h%2C7d&x_cg_pro_api_key=${apiKey}`)
       setNewAllCoinsArray(response.data); // Updates the state with the fetched data.
     }
 

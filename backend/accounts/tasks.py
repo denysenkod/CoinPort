@@ -6,9 +6,15 @@ from .models import Portfolio, PortfolioHistory, Transaction
 import asyncio
 # Import aiohttp for making async HTTP requests.
 import aiohttp
+import os
+from dotenv import load_dotenv
 
-# URL template for CoinGecko API requests, including a placeholder for coin IDs and an API key.
-url = "https://pro-api.coingecko.com/api/v3/coins/{}?&x_cg_pro_api_key=CG-KoQX65qXJc75y6buWtSQXtDP"
+# Load environment variables from .env file
+load_dotenv()
+
+# CoinGecko API URL for fetching coin data, including a placeholder for coin ID.
+COINGECKO_API_KEY = os.getenv('COINGECKO_API_KEY')
+url = "https://pro-api.coingecko.com/api/v3/coins/{}?&x_cg_pro_api_key=" + COINGECKO_API_KEY
 
 # Define a Celery task to save portfolio values for each portfolio.
 @shared_task

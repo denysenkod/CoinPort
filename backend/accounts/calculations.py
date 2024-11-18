@@ -1,10 +1,15 @@
 # Import required modules and models.
 from accounts.models import Coin, Portfolio, Transaction
 import requests, json, asyncio, aiohttp
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # CoinGecko API URL for fetching coin data, including a placeholder for coin ID.
-url = "https://pro-api.coingecko.com/api/v3/coins/{}?&x_cg_pro_api_key=CG-KoQX65qXJc75y6buWtSQXtDP"
-
+COINGECKO_API_KEY = os.getenv('COINGECKO_API_KEY')
+url = "https://pro-api.coingecko.com/api/v3/coins/{}?&x_cg_pro_api_key=" + COINGECKO_API_KEY
 
 def run_script(id):
     # Fetch the portfolio and its transactions.

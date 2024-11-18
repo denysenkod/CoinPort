@@ -13,12 +13,19 @@ from __future__ import absolute_import, unicode_literals
 from pathlib import Path
 import os
 from datetime import timedelta
+from dotenv import load_dotenv
 from .celery import Celery
+
+
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -87,13 +94,11 @@ WSGI_APPLICATION = "CoinPort.wsgi.application"
 
 DATABASES = {
     "default": {
-        #"ENGINE": "django.db.backends.sqlite3",
         "ENGINE": "django.db.backends.postgresql",
-        #"NAME": BASE_DIR / "db.sqlite3",
-        "NAME": "coinport",
-        "USER": "postgres",
-        "PASSWORD": "Denyss20910637syn5crypto",
-        "HOST": "localhost" 
+        "NAME": os.getenv('DATABASE_NAME'),
+        "USER": os.getenv('DATABASE_USER'),
+        "PASSWORD": os.getenv('DATABASE_PASSWORD'),
+        "HOST": os.getenv('DATABASE_HOST')
     }
 }
 
@@ -101,10 +106,10 @@ DATABASES = {
 # email password: denysenkodenys5@gmail.com
 # app password: gtss zeax vrxv vlpj
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_HOST_USER = "denysenkodenys5@gmail.com"
-EMAIL_HOST_PASSWORD = "gtsszeaxvrxvvlpj"
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 
 # Password validation
@@ -198,7 +203,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "accounts.UserAccount"
 
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 
